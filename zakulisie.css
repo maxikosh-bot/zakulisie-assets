@@ -1,0 +1,818 @@
+/* Isadora M Bold — положить файл в assets/fonts/ (.woff2 или .otf/.ttf).
+   Пока файла нет, слово «Закулисье» на занавесе рисуется запасным шрифтом. */
+@font-face{
+  font-family:'Isadora';
+  src:url("https://cdn.jsdelivr.net/gh/maxikosh-bot/zakulisie-assets@main/fonts/isadora-bold.ttf") format('truetype');
+  font-weight:400; font-style:normal; font-display:swap;
+}
+
+
+#zakulisie{
+  --wine:     #6a1d24;
+  --wine-dk:  #5c161c;
+  --wine-btn: #8e1b1e;
+  --cream:    #f1e8de;
+  --cream-2:  #e7dccd;
+  --green:    #23423c;
+  --green-dk: #1c3630;
+  --gold:     #f3dbb2;
+  --gold-2:   #d9b978;
+  --ink:      #17110e;
+
+  --disp: 'Playfair Display', Georgia, serif;
+  --ser:  'PT Serif', Georgia, serif;
+  --sans: 'Golos Text', 'Helvetica Neue', Arial, sans-serif;
+  --btn:  'Bitter', Georgia, serif;
+
+  --pad: clamp(18px, 4.4vw, 80px);
+  --maxw: 1180px;
+
+  /* ромбы-арлекин: SVG-плитка, шов не видно на любом экране */
+  --harlequin: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 172'%3E%3Crect width='100' height='172' fill='%23f1e8de'/%3E%3Cpath d='M50 0 100 86 50 172 0 86Z' fill='%236a1d24'/%3E%3C/svg%3E");
+
+  background:var(--cream); color:var(--ink);
+  font-family:var(--sans); font-size:17px; line-height:1.5;
+  position:relative; overflow-x:clip; -webkit-font-smoothing:antialiased;
+}
+#zakulisie *,#zakulisie *::before,#zakulisie *::after{box-sizing:border-box}
+#zakulisie p,#zakulisie h1,#zakulisie h2,#zakulisie h3,#zakulisie ul,#zakulisie li,#zakulisie figure,#zakulisie figcaption{margin:0;padding:0}
+#zakulisie ul{list-style:none}
+#zakulisie img{display:block;max-width:100%}
+#zakulisie a{color:inherit;text-decoration:none}
+#zakulisie button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+#zakulisie ::selection{background:var(--gold-2);color:var(--ink)}
+
+/* ------------ общее ------------ */
+#zakulisie .zk-sec{position:relative; padding:clamp(48px,7vw,104px) var(--pad)}
+#zakulisie .zk-wrap{max-width:var(--maxw); margin:0 auto; position:relative; z-index:2}
+#zakulisie .zk-cream{background:var(--cream)}
+#zakulisie .zk-wine{background:var(--wine); color:var(--cream)}
+#zakulisie .zk-green{background:var(--green); color:var(--cream)}
+#zakulisie .zk-bar{height:14px; background:#0b0806}
+
+#zakulisie .zk-title{
+  font-family:var(--disp); font-weight:400; text-transform:uppercase; color:var(--gold);
+  font-size:clamp(28px,4.6vw,58px); line-height:1.1; letter-spacing:.01em; text-align:center;
+}
+#zakulisie .zk-serif{font-family:var(--ser)}
+
+/* ------------ кнопка-картуш ------------ */
+#zakulisie .zk-btn{
+  position:relative; display:block; width:clamp(250px,32vw,400px); margin:0 auto;
+  transition:transform .4s cubic-bezier(.2,.8,.25,1), filter .4s;
+}
+#zakulisie .zk-btn img{width:100%; height:auto; filter:drop-shadow(0 14px 26px rgba(0,0,0,.34))}
+#zakulisie .zk-btn span{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-52%);
+  font-family:var(--btn); font-weight:700; color:var(--wine-btn); white-space:nowrap;
+  font-size:clamp(19px,2.5vw,31px); letter-spacing:.02em;
+}
+#zakulisie .zk-btn:hover{transform:translateY(-4px) scale(1.02); filter:brightness(1.05)}
+#zakulisie .zk-btn:active{transform:translateY(-1px) scale(.99)}
+
+/* ------------ 1. ХИРО ------------ */
+#zakulisie .zk-hero{
+  position:relative; text-align:center; overflow:hidden;
+  background-image:var(--harlequin); background-size:auto clamp(146px,15vw,230px);
+  padding:clamp(30px,4.5vw,60px) var(--pad) clamp(52px,7vw,104px);
+}
+#zakulisie .zk-hero__glow{
+  position:absolute; left:50%; top:26%; transform:translateX(-50%); z-index:1; pointer-events:none;
+  width:min(1500px,120vw); height:min(860px,92vw);
+  /* явные радиусы: свечение полностью растворяется внутри блока, краёв не видно */
+  background:radial-gradient(ellipse 44% 46% at 50% 54%,
+      rgba(20,13,11,.9) 0%,
+      rgba(20,13,11,.8) 30%,
+      rgba(20,13,11,.55) 52%,
+      rgba(20,13,11,.24) 76%,
+      rgba(20,13,11,0) 100%);
+}
+#zakulisie .zk-hero__arch{
+  position:relative; z-index:2; width:clamp(200px,29vw,400px); margin:0 auto clamp(10px,1.4vw,22px);
+  aspect-ratio:3/4.35; overflow:hidden;
+  clip-path:polygon(12% 0,88% 0,100% 9%,100% 100%,0 100%,0 9%);
+  border-radius:46% 46% 0 0 / 26% 26% 0 0;
+  box-shadow:0 26px 48px -26px rgba(23,17,14,.7);
+}
+#zakulisie .zk-hero__arch img{width:100%; height:100%; object-fit:cover; object-position:50% 30%}
+#zakulisie .zk-hero__ttl{
+  position:relative; z-index:3; font-family:var(--disp); font-weight:500; color:var(--gold);
+  font-size:clamp(46px,12.4vw,158px); line-height:1; letter-spacing:.005em; text-transform:uppercase;
+  text-shadow:0 10px 30px rgba(23,17,14,.45);
+}
+#zakulisie .zk-hero__sub{
+  position:relative; z-index:3; max-width:29ch; margin:clamp(10px,1.6vw,20px) auto 0;
+  font-family:var(--ser); color:var(--cream); font-size:clamp(17px,2.35vw,29px); line-height:1.35;
+  text-shadow:0 2px 12px rgba(20,13,11,.92), 0 0 34px rgba(20,13,11,.85);
+}
+#zakulisie .zk-hero__btn{position:relative; z-index:3; margin-top:clamp(24px,3.4vw,44px)}
+
+/* ------------ 2. СИМПТОМЫ ------------ */
+#zakulisie .zk-lead{
+  font-family:var(--ser); text-align:center; color:var(--ink);
+  font-size:clamp(20px,3.1vw,37px); line-height:1.36; max-width:26ch; margin:0 auto;
+}
+#zakulisie .zk-objs{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(16px,3vw,44px);
+  margin-top:clamp(34px,5vw,74px); align-items:end;
+}
+#zakulisie .zk-obj{display:flex; flex-direction:column; align-items:center; text-align:center; gap:clamp(12px,1.6vw,22px)}
+#zakulisie .zk-obj--up{flex-direction:column-reverse; justify-content:flex-end}
+#zakulisie .zk-obj img{
+  height:clamp(130px,17.5vw,268px); width:auto;
+  filter:drop-shadow(0 18px 26px rgba(23,17,14,.28));
+  transition:transform .7s cubic-bezier(.2,.8,.25,1);
+}
+#zakulisie .zk-obj:hover img{transform:translateY(-8px) rotate(-2deg)}
+#zakulisie .zk-obj p{font-size:clamp(14px,1.55vw,19px); line-height:1.4; max-width:24ch}
+
+/* ------------ 3. ЗАНАВЕС ------------ */
+#zakulisie .zk-curtain{position:relative; overflow:hidden; background:#050605}
+#zakulisie .zk-curtain img{
+  width:100%; height:100%; object-fit:cover; position:absolute; inset:0;
+}
+#zakulisie .zk-curtain__in{
+  position:relative; z-index:2; max-width:var(--maxw); margin:0 auto;
+  min-height:clamp(340px,44vw,640px); display:flex; align-items:center; justify-content:center;
+  padding:clamp(40px,6vw,90px) var(--pad);
+}
+#zakulisie .zk-curtain__tx{
+  font-family:var(--ser); color:var(--cream); font-size:clamp(21px,3vw,38px); line-height:1.3;
+  max-width:15ch; text-shadow:0 6px 22px rgba(0,0,0,.85);
+}
+#zakulisie .zk-brm{display:none}
+@media (max-width:760px){#zakulisie .zk-brm{display:inline}}
+#zakulisie .zk-curtain__tx em{
+  display:block; margin-top:.35em; padding-left:1.6em; color:var(--gold);
+  font-family:'Isadora', var(--ser); font-weight:400; font-style:normal;
+  font-synthesis:none; font-size:clamp(30px,4.9vw,64px);
+  text-transform:uppercase; letter-spacing:.04em;
+}
+/* у пары «Ь+Е» в Isadora нет свеса — подтягиваем последнюю букву к слову */
+#zakulisie .zk-curtain__tx em span{margin-left:-.13em}
+
+/* ------------ 4. ЗЕЛЁНАЯ ПОЛОСА ------------ */
+#zakulisie .zk-stars{
+  background:var(--green); color:var(--cream);
+  padding:clamp(30px,4vw,54px) var(--pad);
+  display:grid; grid-template-columns:auto 1fr auto; gap:clamp(14px,3vw,44px); align-items:center;
+}
+#zakulisie .zk-stars img{width:clamp(56px,7.8vw,122px); height:auto; filter:drop-shadow(0 8px 16px rgba(0,0,0,.45))}
+#zakulisie .zk-stars p{
+  font-family:var(--ser); text-align:center; font-size:clamp(15px,1.95vw,24px); line-height:1.45;
+  max-width:56ch; margin:0 auto;
+}
+#zakulisie .zk-stars b{color:var(--gold); font-weight:700}
+
+/* ------------ 6. ЧТО ИССЛЕДУЕМ ------------ */
+#zakulisie .zk-explore{
+  display:grid; grid-template-columns:1fr minmax(0,44%); gap:clamp(24px,4vw,60px); align-items:center;
+  margin-top:clamp(28px,4vw,58px);
+}
+#zakulisie .zk-explore li{
+  position:relative;
+  font-family:var(--ser); text-align:center; font-size:clamp(15px,1.95vw,25px); line-height:1.4;
+  padding:clamp(14px,2vw,26px) 0; max-width:26ch; margin:0 auto;
+}
+/* перегородки между пунктами */
+#zakulisie .zk-explore li + li::before{
+  content:''; position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:min(210px,70%); height:1px;
+  background:linear-gradient(90deg, transparent, rgba(243,219,178,.6), transparent);
+}
+#zakulisie .zk-explore img{width:100%; height:auto; filter:drop-shadow(0 20px 34px rgba(0,0,0,.42))}
+
+/* ------------ 7. КАК ЭТО РАБОТАЕТ ------------ */
+#zakulisie .zk-how{position:relative; overflow:hidden}
+#zakulisie .zk-how__eye{
+  position:absolute; left:clamp(-20px,3.2vw,64px); top:clamp(22px,2.6vw,44px);
+  width:clamp(190px,26vw,380px); z-index:1;
+  filter:drop-shadow(0 14px 26px rgba(0,0,0,.5));
+}
+/* заголовок сдвинут вправо и лежит поверх глаза — как в макете */
+@media (min-width:901px){
+  #zakulisie .zk-how{padding-top:clamp(80px,13vw,200px)}
+  #zakulisie .zk-how .zk-wrap{padding-left:min(27%,320px)}
+  #zakulisie .zk-how .zk-title,
+  #zakulisie .zk-how__sub{text-align:left}
+}
+#zakulisie .zk-how__grid{
+  display:grid; grid-template-columns:1fr auto; gap:clamp(20px,4vw,60px); align-items:center;
+  margin-top:clamp(20px,3vw,40px);
+}
+#zakulisie .zk-how__sub{
+  font-family:var(--ser); color:var(--gold); text-align:center;
+  font-size:clamp(19px,2.7vw,33px); line-height:1.3; margin-top:clamp(16px,2.4vw,32px);
+}
+#zakulisie .zk-how__tx{
+  position:relative; padding-left:1.5em; font-family:var(--ser);
+  font-size:clamp(15px,1.85vw,23px); line-height:1.5; text-align:justify; hyphens:auto;
+}
+#zakulisie .zk-how__tx::before{
+  content:'•'; position:absolute; left:.2em; top:-.05em; color:var(--gold); font-size:1.1em;
+}
+#zakulisie .zk-how__key{width:clamp(52px,6.6vw,104px); filter:drop-shadow(0 14px 22px rgba(0,0,0,.5))}
+
+/* ------------ 8. ЗЕБРА ------------ */
+#zakulisie .zk-zebra{
+  background-color:var(--wine-dk);
+  background-image:url("https://cdn.jsdelivr.net/gh/maxikosh-bot/zakulisie-assets@main/pattern-zebra.jpg");
+  background-size:clamp(240px,26vw,430px) auto; background-repeat:repeat;
+  color:var(--gold); text-align:center;
+}
+#zakulisie .zk-zebra::before{
+  content:''; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(rgba(48,10,13,.74), rgba(48,10,13,.74));
+}
+/* мягкая тёмная плашка под текстом — узор остаётся виден по краям */
+#zakulisie .zk-zebra .zk-wrap::before{
+  content:''; position:absolute; z-index:-1; inset:-34% -22%;
+  /* closest-side — градиент гаснет ровно к краям блока, стыка не видно */
+  background:radial-gradient(closest-side,
+    rgba(26,5,7,.9) 0%, rgba(26,5,7,.74) 38%, rgba(26,5,7,.36) 66%, rgba(26,5,7,0) 100%);
+}
+#zakulisie .zk-zebra p{
+  font-family:var(--ser); font-size:clamp(16px,2.2vw,27px); line-height:1.4;
+  max-width:44ch; margin:0 auto; padding:clamp(10px,1.6vw,20px) 0;
+  text-shadow:0 2px 10px rgba(0,0,0,.9), 0 0 28px rgba(0,0,0,.75);
+}
+#zakulisie .zk-zebra .zk-title{text-shadow:0 3px 16px rgba(0,0,0,.85), 0 0 34px rgba(0,0,0,.6)}
+#zakulisie .zk-prices{color:var(--cream)}
+#zakulisie .zk-prices p{font-size:clamp(17px,2.4vw,30px); padding:4px 0}
+#zakulisie .zk-prices .zk-title{margin-bottom:clamp(16px,2.4vw,30px)}
+
+/* ------------ 9. АРХИВ ------------ */
+#zakulisie .zk-arch__ttl{
+  font-family:var(--disp); text-transform:uppercase; text-align:center; color:var(--cream);
+  font-size:clamp(19px,2.7vw,34px); line-height:1.24; letter-spacing:.01em; max-width:30ch; margin:0 auto;
+}
+#zakulisie .zk-flourish{display:block; width:clamp(180px,26vw,360px); margin:clamp(18px,2.6vw,34px) auto}
+#zakulisie .zk-track{
+  display:flex; gap:clamp(14px,2.2vw,28px); overflow-x:auto; scroll-snap-type:x mandatory;
+  padding-bottom:18px; scrollbar-width:none; cursor:grab; -webkit-overflow-scrolling:touch;
+}
+#zakulisie .zk-track::-webkit-scrollbar{display:none}
+#zakulisie .zk-track.is-drag{cursor:grabbing; scroll-snap-type:none}
+#zakulisie .zk-slide{flex:0 0 calc(50% - clamp(7px,1.1vw,14px)); scroll-snap-align:center}
+#zakulisie .zk-slide img{width:100%; height:auto; box-shadow:0 20px 40px -22px rgba(0,0,0,.75)}
+#zakulisie .zk-nav{display:flex; align-items:center; justify-content:center; gap:14px; margin-top:clamp(12px,1.8vw,20px)}
+#zakulisie .zk-nav button{
+  width:46px; height:46px; border-radius:50%; border:1px solid rgba(243,219,178,.55);
+  color:var(--gold); display:grid; place-items:center; font-size:17px; transition:.3s;
+}
+#zakulisie .zk-nav button:hover{background:var(--gold); color:var(--wine); border-color:var(--gold)}
+#zakulisie .zk-dots{display:flex; gap:8px}
+#zakulisie .zk-dots i{width:7px; height:7px; border-radius:50%; background:rgba(243,219,178,.4); transition:.3s; cursor:pointer}
+#zakulisie .zk-dots i.is-on{background:var(--gold); transform:scale(1.5)}
+
+/* ------------ 10. ФИНАЛ ------------ */
+#zakulisie .zk-final{text-align:center}
+#zakulisie .zk-final__row{
+  display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center;
+  gap:clamp(10px,2.5vw,40px); max-width:820px; margin:clamp(30px,4vw,56px) auto 0;
+}
+#zakulisie .zk-final__row > img{width:clamp(48px,6.6vw,104px); filter:drop-shadow(0 8px 16px rgba(0,0,0,.45))}
+#zakulisie .zk-final__ttl{
+  font-family:var(--disp); color:var(--gold); text-transform:uppercase;
+  font-size:clamp(21px,3.5vw,45px); line-height:1.25; letter-spacing:.01em;
+  max-width:22ch; margin:0 auto;
+}
+#zakulisie .zk-final__eye{
+  width:clamp(110px,15vw,230px); margin:clamp(26px,4vw,52px) auto 0;
+  filter:drop-shadow(0 16px 26px rgba(0,0,0,.5));
+}
+
+/* ------------ ПОДВАЛ (как на viamercury.com) ------------ */
+#zakulisie .zk-foot{background:#fefefe; color:#2e2e2e; padding:30px var(--pad); position:relative; z-index:2}
+#zakulisie .zk-foot__in{
+  max-width:1160px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr);
+  gap:20px; align-items:start;
+}
+#zakulisie .zk-foot__logo{font-size:16px; font-weight:600; color:#b83135; text-transform:uppercase; letter-spacing:.02em}
+#zakulisie .zk-foot__c{font-size:20px; font-weight:500; margin-top:6px}
+#zakulisie .zk-foot__d{font-size:16px; font-weight:300; line-height:1.45}
+#zakulisie .zk-foot__d span{font-family:Arial,Helvetica,sans-serif}
+#zakulisie .zk-foot a:hover{color:#b83135}
+
+/* ------------ появления ------------ */
+#zakulisie .zk-rv{opacity:0; transform:translateY(24px);
+  transition:opacity .9s cubic-bezier(.2,.8,.25,1), transform .9s cubic-bezier(.2,.8,.25,1);
+  transition-delay:calc(var(--i,0)*90ms)}
+#zakulisie .zk-rv.is-in{opacity:1; transform:none}
+
+/* ============================================================
+   МОБИЛЬНАЯ ВЕРСИЯ
+   ============================================================ */
+@media (max-width:900px){
+  #zakulisie .zk-explore{grid-template-columns:1fr; gap:clamp(20px,4vw,34px)}
+  #zakulisie .zk-explore .zk-explore__img{max-width:300px; margin:0 auto}
+  #zakulisie .zk-how__grid{grid-template-columns:1fr; gap:18px}
+  #zakulisie .zk-how__key{width:64px; margin:0 auto}
+  #zakulisie .zk-how__eye{position:static; width:min(180px,44vw); margin:0 auto clamp(10px,2vw,18px)}
+  #zakulisie .zk-slide{flex:0 0 78%}
+}
+@media (max-width:700px){
+  #zakulisie{font-size:16px}
+  #zakulisie .zk-objs{grid-template-columns:1fr; gap:clamp(26px,7vw,40px); margin-top:34px}
+  #zakulisie .zk-obj{flex-direction:column}
+  #zakulisie .zk-obj--up{flex-direction:column}
+  #zakulisie .zk-obj img{height:min(200px,44vw); width:auto}
+  #zakulisie .zk-obj p{max-width:30ch; font-size:16px}
+  #zakulisie .zk-lead{max-width:none; font-size:22px}
+  #zakulisie .zk-hero__sub{max-width:19ch; font-size:19px}
+  #zakulisie .zk-hero__ttl{font-size:11.2vw}
+  #zakulisie .zk-hero__arch{width:min(230px,58vw)}
+  /* текст «из-за кулис»: по центру тёмного проёма, уже и мельче */
+  #zakulisie .zk-curtain__in{min-height:min(82vh,540px); align-items:center; justify-content:center; text-align:center}
+  #zakulisie .zk-curtain__tx{
+    max-width:min(68%,265px); margin:0 auto; text-align:center;
+    font-size:clamp(14px,4.1vw,19px); line-height:1.34;
+  }
+  #zakulisie .zk-brm{display:none}
+@media (max-width:760px){#zakulisie .zk-brm{display:inline}}
+#zakulisie .zk-curtain__tx em{
+    padding-left:0; margin-top:.4em; font-size:clamp(21px,6.2vw,29px);
+  }
+  #zakulisie .zk-stars{grid-template-columns:1fr; gap:16px; text-align:center}
+  #zakulisie .zk-stars img{width:64px; margin:0 auto}
+  #zakulisie .zk-stars img:last-of-type{display:none}
+  #zakulisie .zk-explore li{max-width:32ch; font-size:17px}
+  #zakulisie .zk-how__tx{text-align:left; padding-left:1.2em}
+  #zakulisie .zk-final__row{grid-template-columns:1fr}
+  #zakulisie .zk-final__row > img{display:none}
+  #zakulisie .zk-btn{width:min(340px,88vw)}
+  #zakulisie .zk-slide{flex:0 0 84%}
+  #zakulisie .zk-foot__in{grid-template-columns:1fr; gap:14px; text-align:left}
+  #zakulisie .zk-foot__c{font-size:18px}
+}
+@media (max-width:700px){
+  #zakulisie .zk-hero__glow{top:20%; width:150vw; height:min(880px,155vw)}
+  #zakulisie .zk-hero__sub{text-shadow:0 3px 16px rgba(20,13,11,.95), 0 0 34px rgba(20,13,11,.8)}
+}
+@media (max-width:420px){
+  #zakulisie .zk-hero__ttl{font-size:11.2vw}
+  #zakulisie .zk-btn span{font-size:19px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  #zakulisie *{transition-duration:.01ms !important; animation-duration:.01ms !important}
+  #zakulisie .zk-rv{opacity:1; transform:none}
+}
+
+
+/* ================= СКИН «ЛЮКС» — та же вёрстка, другая подача =================
+   Тёмная сцена, сусальное золото, тонкие линейки, дуотон-фото.
+   Файл для сравнения: правится только этот блок, разметка общая с index.html.
+   ============================================================================ */
+#zakulisie{
+  --cream:#efe6d6; --ink:#0e0a09; --gold:#edd9a4; --gold-2:#c8a44d;
+  --disp:'Prata', Georgia, serif;
+  --sans:'Manrope','Helvetica Neue',Arial,sans-serif;
+  background:var(--ink); color:var(--cream);
+}
+/* фон секций: вместо кремового — чернильный, вместо зелёного — глубже */
+#zakulisie .zk-cream{background:#100c0b; color:#e6dbc9}
+#zakulisie .zk-cream .zk-lead{color:#e6dbc9}
+#zakulisie .zk-green{background:#12211d}
+#zakulisie .zk-wine{background:linear-gradient(170deg,#5d1219,#33090e 70%)}
+
+/* золочёные заголовки */
+#zakulisie .zk-title,#zakulisie .zk-main,#zakulisie .zk-final__ttl,#zakulisie .zk-arch__ttl{
+  background:linear-gradient(96deg,#8c6c25,#edd9a4 26%,#c8a44d 48%,#f6ecc9 66%,#9b7a2c);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  letter-spacing:.03em;
+}
+#zakulisie .zk-hero__ttl{
+  background:linear-gradient(96deg,#8c6c25,#edd9a4 24%,#c8a44d 46%,#f8f0d4 64%,#9b7a2c);
+  -webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;
+}
+/* волосяные золотые линейки над секциями */
+#zakulisie .zk-sec:not(.zk-zebra)::before{
+  content:'';position:absolute;left:var(--pad);right:var(--pad);top:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(200,164,77,.55),transparent);
+}
+/* тонкая рамка по краю первого экрана */
+#zakulisie .zk-hero{box-shadow:inset 0 0 0 1px rgba(200,164,77,.28)}
+#zakulisie .zk-hero__glow{
+  background:radial-gradient(ellipse 46% 48% at 50% 54%,
+    rgba(8,5,4,.94) 0%, rgba(8,5,4,.8) 32%, rgba(8,5,4,.5) 56%, rgba(8,5,4,0) 100%);
+}
+/* фотографии остаются цветными, лёгкая кинематографичность без обесцвечивания */
+#zakulisie .zk-hero__arch img,#zakulisie .zk-curtain img,#zakulisie .zk-slide img{
+  filter:contrast(1.06) saturate(1.04) brightness(.98);
+  transition:filter .8s ease, transform .9s ease;
+}
+#zakulisie .zk-hero__arch{box-shadow:0 30px 60px -28px #000, 0 0 0 1px rgba(200,164,77,.45)}
+#zakulisie .zk-slide img{border:1px solid rgba(200,164,77,.35)}
+/* предметы — приглушённее, чтобы не спорили с золотом */
+#zakulisie .zk-obj img{filter:drop-shadow(0 18px 26px rgba(0,0,0,.6)) saturate(.85)}
+/* списки: линейки вместо воздуха */
+#zakulisie .zk-explore li + li::before{background:linear-gradient(90deg,transparent,rgba(200,164,77,.7),transparent)}
+#zakulisie .zk-give li{border-bottom:1px solid rgba(239,230,214,.12)}
+/* зебра темнее и спокойнее */
+#zakulisie .zk-zebra::before{background:linear-gradient(rgba(20,7,9,.8),rgba(20,7,9,.8))}
+#zakulisie .zk-zebra p{color:var(--gold)}
+/* кнопка-картуш: золото приглушено, добавлено свечение */
+#zakulisie .zk-btn img{filter:drop-shadow(0 16px 30px rgba(0,0,0,.7)) saturate(.9) brightness(.96)}
+#zakulisie .zk-btn span{color:#7a1216}
+
+/* на зебре золотой градиент в буквах «плывёт» — там заголовок плоским золотом */
+#zakulisie .zk-zebra .zk-title{
+  background:none; -webkit-background-clip:border-box; background-clip:border-box;
+  color:#f3dbb2; -webkit-text-fill-color:#f3dbb2;
+  text-shadow:0 3px 16px rgba(0,0,0,.92), 0 0 34px rgba(0,0,0,.7);
+}
+/* подвал в тон */
+#zakulisie .zk-foot{background:#0b0807;color:#a2938a;border-top:1px solid rgba(200,164,77,.22)}
+#zakulisie .zk-foot__logo{color:#c8a44d}
+#zakulisie .zk-foot__c{color:#e6dbc9}
+
+/* ================= 5. ВОПРОСЫ — «шёпот» и сцена =================
+   Четыре вопроса — нумерованный указатель на волосяных линейках.
+   Ниже сцена: потолок отражён в обе стороны как кулисы,
+   главный вопрос стоит в просвете под «софитом». */
+#zakulisie .zk-q{padding-bottom:0; overflow:hidden}
+#zakulisie .zk-q__list{
+  list-style:none; display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+  column-gap:clamp(28px,5vw,88px); counter-reset:q;
+}
+#zakulisie .zk-q__list li{
+  display:grid; grid-template-columns:clamp(44px,4.6vw,64px) 1fr; align-items:baseline;
+  padding:clamp(18px,2.2vw,30px) 0; border-top:1px solid rgba(200,164,77,.22);
+  transition:opacity .9s cubic-bezier(.2,.8,.25,1), transform .9s cubic-bezier(.2,.8,.25,1), border-color .5s;
+  transition-delay:calc(var(--i,0)*110ms), calc(var(--i,0)*110ms), 0s;
+}
+#zakulisie .zk-q__list li:nth-child(n+3){border-bottom:1px solid rgba(200,164,77,.22)}
+#zakulisie .zk-q__n{
+  font-family:var(--disp); font-size:clamp(15px,1.3vw,19px); letter-spacing:.08em; color:var(--gold-2);
+}
+#zakulisie .zk-q__list p{
+  font-family:var(--sans); font-weight:300; font-size:clamp(16px,1.45vw,20px); line-height:1.5;
+  color:rgba(230,219,201,.72); transition:color .5s;
+}
+#zakulisie .zk-q__list li:hover{border-top-color:rgba(200,164,77,.6)}
+#zakulisie .zk-q__list li:hover p{color:#f1e7d6}
+
+#zakulisie .zk-q__stage{
+  --h:clamp(420px,46vw,640px);
+  position:relative; margin:clamp(40px,6vw,96px) calc(var(--pad)*-1) 0;
+  min-height:var(--h);
+  display:grid; place-items:center; isolation:isolate;
+}
+#zakulisie .zk-q__edge{
+  position:absolute; top:0; height:100%; width:auto; max-width:none; z-index:1;
+  filter:drop-shadow(0 20px 40px rgba(0,0,0,.75)) saturate(.9) brightness(.92);
+  transition:transform 1.6s cubic-bezier(.16,.8,.2,1), opacity 1.2s ease;
+  opacity:0;
+}
+#zakulisie .zk-q__edge--r{right:0; transform:translateX(18%)}
+#zakulisie .zk-q__edge--l{left:0; transform:scaleX(-1) translateX(18%)}
+#zakulisie .zk-q__stage.is-in .zk-q__edge{opacity:1}
+#zakulisie .zk-q__stage.is-in .zk-q__edge--r{transform:none}
+#zakulisie .zk-q__stage.is-in .zk-q__edge--l{transform:scaleX(-1)}
+#zakulisie .zk-q__spot{
+  position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(closest-side at 50% 44%, rgba(237,217,164,.13), rgba(237,217,164,.04) 60%, transparent),
+    radial-gradient(closest-side at 50% 100%, rgba(93,18,25,.55), transparent);
+  opacity:0; transition:opacity 2s ease .4s;
+}
+#zakulisie .zk-q__stage.is-in .zk-q__spot{opacity:1}
+#zakulisie .zk-q__core{
+  position:relative; z-index:2; text-align:center;
+  width:min(780px, calc(100% - var(--h)*.95));
+  padding:clamp(40px,5vw,72px) 0;
+}
+#zakulisie .zk-q__eyebrow{
+  display:inline-flex; align-items:center; gap:.9em; white-space:nowrap;
+  font-family:var(--disp); font-weight:400; text-transform:uppercase;
+  font-size:clamp(13px,1.1vw,16px); letter-spacing:.34em; color:var(--gold-2);
+}
+#zakulisie .zk-q__eyebrow::before,#zakulisie .zk-q__eyebrow::after{
+  content:''; width:clamp(28px,4vw,60px); height:1px;
+  background:linear-gradient(90deg,transparent,rgba(200,164,77,.8));
+}
+#zakulisie .zk-q__eyebrow::after{transform:scaleX(-1)}
+#zakulisie .zk-q__main{
+  margin-top:clamp(18px,2vw,28px);
+  font-family:var(--ser); font-size:clamp(26px,3.4vw,50px); line-height:1.24; color:#efe6d6;
+  text-wrap:balance;
+}
+#zakulisie .zk-q__main em{
+  font-style:italic;
+  background:linear-gradient(96deg,#8c6c25,#edd9a4 30%,#c8a44d 55%,#f6ecc9 80%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+
+@media (max-width:760px){
+  #zakulisie .zk-q__list{grid-template-columns:1fr}
+  #zakulisie .zk-q__list li:nth-child(n+3){border-bottom:0}
+  #zakulisie .zk-q__list li:last-child{border-bottom:1px solid rgba(200,164,77,.22)}
+  #zakulisie .zk-q__list li{grid-template-columns:40px 1fr; padding:16px 0}
+  #zakulisie .zk-q__list p{font-size:16px; color:rgba(230,219,201,.82)}
+  #zakulisie .zk-q__stage{min-height:0; margin-top:36px}
+  #zakulisie .zk-q__edge{height:100%; width:24vw; object-fit:cover; object-position:right center;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 22%,#000 78%,transparent 100%);
+            mask-image:linear-gradient(180deg,transparent 0,#000 22%,#000 78%,transparent 100%)}
+  #zakulisie .zk-q__edge--r{border-radius:60px 0 0 60px}
+  #zakulisie .zk-q__edge--l{border-radius:0 60px 60px 0}
+  #zakulisie .zk-q__core{width:auto; padding:56px calc(24vw - 8px)}
+  #zakulisie .zk-q__main{font-size:clamp(21px,6vw,26px)}
+  #zakulisie .zk-q__eyebrow{font-size:12px; letter-spacing:.26em}
+  #zakulisie .zk-q__eyebrow::before,#zakulisie .zk-q__eyebrow::after{width:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  #zakulisie .zk-q__edge,#zakulisie .zk-q__spot{opacity:1; transition:none}
+  #zakulisie .zk-q__edge--r{transform:none}
+  #zakulisie .zk-q__edge--l{transform:scaleX(-1)}
+}
+
+/* ================= БЛОКИ ИЗ ВЕРСИИ 2 (симптомы, бегущая строка, форматы, архив, билет, плавающая кнопка) ================= */
+#zakulisie{
+  --z2-ink:#0d0908;
+  --z2-ink-2:#14100e;
+  --z2-ink-3:#1b1512;
+  --z2-wine:#5d1219;
+  --z2-wine-2:#33090e;
+  --z2-wine-3:#7a1b24;
+  --z2-green:#12211d;
+  --z2-green-2:#0c1714;
+  --z2-cream:#efe6d6;
+  --z2-muted:rgba(239,230,214,.64);
+  --z2-faint:rgba(239,230,214,.4);
+  --z2-gold:#e8d29c;
+  --z2-gold-2:#c8a44d;
+  --z2-gold-3:#8c6c25;
+  --z2-line:rgba(200,164,77,.24);
+  --z2-line-2:rgba(200,164,77,.5);
+  --z2-disp:'Oranienbaum', 'Prata', Georgia, serif;
+  --z2-acc:'Cormorant Garamond', Georgia, serif;
+  --z2-sans:'Onest', 'Helvetica Neue', Arial, sans-serif;
+  --z2-ease:cubic-bezier(.16,.8,.2,1);
+  --z2-goldgrad:linear-gradient(96deg,#8c6c25,#edd9a4 26%,#c8a44d 48%,#f6ecc9 66%,#9b7a2c);
+  --z2-harlequin:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 172'%3E%3Cpath d='M50 0 100 86 50 172 0 86Z' fill='%23c8a44d'/%3E%3C/svg%3E");
+}
+/* ---------- общее ---------- */
+#zakulisie .z2-sec{position:relative; padding:clamp(72px,10vw,150px) var(--pad)}
+#zakulisie .z2-wrap{max-width:var(--maxw); margin:0 auto; position:relative; z-index:2}
+#zakulisie .z2-gold{background:var(--z2-goldgrad); -webkit-background-clip:text; background-clip:text; color:transparent}
+#zakulisie .z2-h2{
+  font-family:var(--z2-disp); font-weight:400; line-height:1.02; letter-spacing:-.005em;
+  font-size:clamp(38px,6vw,88px);
+}
+#zakulisie .z2-h2 em{font-family:var(--z2-acc); font-style:italic; font-weight:400}
+/* кнопки */
+#zakulisie .z2-btn{
+  --h:58px;
+  display:inline-flex; align-items:center; justify-content:center; gap:14px;
+  height:var(--h); padding:0 30px 0 32px; border-radius:999px;
+  font:500 15px/1 var(--z2-sans); letter-spacing:.06em;
+  color:#1a0f0a; background:var(--z2-goldgrad); background-size:180% 100%; background-position:0 0;
+  box-shadow:0 18px 40px -18px rgba(200,164,77,.7), inset 0 0 0 1px rgba(255,245,215,.35);
+  transition:background-position .7s var(--z2-ease), transform .4s var(--z2-ease), box-shadow .4s;
+}
+#zakulisie .z2-btn svg{width:18px; height:18px; transition:transform .4s var(--z2-ease)}
+#zakulisie .z2-btn:hover{background-position:100% 0; transform:translateY(-2px); box-shadow:0 24px 50px -18px rgba(200,164,77,.85), inset 0 0 0 1px rgba(255,245,215,.5)}
+#zakulisie .z2-btn:hover svg{transform:translateX(4px)}
+#zakulisie .z2-btn:focus-visible,#zakulisie .z2-ghost:focus-visible,#zakulisie button:focus-visible{outline:2px solid var(--z2-gold); outline-offset:4px}
+#zakulisie .z2-ghost{
+  display:inline-flex; align-items:center; gap:10px; height:58px; padding:0 6px;
+  font:400 15px/1 var(--z2-sans); color:var(--z2-muted); letter-spacing:.04em;
+  border-bottom:1px solid transparent; transition:color .3s, border-color .3s;
+}
+#zakulisie .z2-ghost:hover{color:var(--z2-cream)}
+#zakulisie .z2-top .z2-btn{--h:42px; padding:0 20px; font-size:13px; box-shadow:none}
+/* ---------- 2. АКТ I — СЦЕНА ---------- */
+#zakulisie .z2-scene{background:var(--z2-ink)}
+#zakulisie .z2-lead{
+  max-width:26ch; font-family:var(--z2-acc); font-weight:500; font-size:clamp(28px,3.6vw,54px); line-height:1.14;
+}
+#zakulisie .z2-lead em{font-style:italic; color:var(--z2-gold)}
+#zakulisie .z2-signs{
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(14px,2vw,28px);
+  margin-top:clamp(44px,6vw,90px);
+}
+#zakulisie .z2-sign{
+  position:relative; padding:clamp(24px,2.6vw,36px); padding-top:0; border-radius:24px;
+  background:linear-gradient(180deg,var(--z2-ink-3),var(--z2-ink-2));
+  box-shadow:inset 0 0 0 1px rgba(239,230,214,.07);
+  display:flex; flex-direction:column; transition:transform .6s var(--z2-ease), box-shadow .6s;
+}
+#zakulisie .z2-sign:hover{transform:translateY(-6px); box-shadow:inset 0 0 0 1px var(--z2-line)}
+#zakulisie .z2-sign__img{height:clamp(170px,17vw,230px); display:flex; align-items:flex-end; justify-content:center; margin-top:-34px}
+#zakulisie .z2-sign__img img{height:100%; width:auto; object-fit:contain; filter:drop-shadow(0 24px 30px rgba(0,0,0,.7)) saturate(.9); transition:transform .8s var(--z2-ease)}
+#zakulisie .z2-sign:hover .z2-sign__img img{transform:translateY(-8px) rotate(-3deg)}
+#zakulisie .z2-sign__n{margin-top:26px; font-family:var(--z2-disp); font-size:14px; letter-spacing:.2em; color:var(--z2-gold-2)}
+#zakulisie .z2-sign p{margin-top:10px; font-size:clamp(16px,1.3vw,19px); line-height:1.5; color:var(--z2-muted)}
+/* ---------- 4. ЗАКУЛИСЬЕ — текст + бегущая строка ---------- */
+#zakulisie .z2-behind{background:var(--z2-green); padding-bottom:0}
+#zakulisie .z2-behind__tx{
+  max-width:34ch; margin:0 auto; text-align:center;
+  font-family:var(--z2-acc); font-weight:500; font-size:clamp(24px,2.7vw,40px); line-height:1.3; color:var(--z2-cream);
+}
+#zakulisie .z2-behind__tx b{font-weight:500; font-style:italic; background:var(--z2-goldgrad); -webkit-background-clip:text; background-clip:text; color:transparent}
+#zakulisie .z2-marq{
+  margin:clamp(50px,7vw,100px) calc(var(--pad)*-1) 0; padding:clamp(18px,2vw,26px) 0;
+  border-top:1px solid var(--z2-line); border-bottom:1px solid var(--z2-line); overflow:hidden; background:var(--z2-green-2);
+}
+#zakulisie .z2-marq__row{display:flex; width:max-content; animation:z2-marq 48s linear infinite}
+#zakulisie .z2-marq__row span{
+  display:flex; align-items:center; gap:clamp(22px,3vw,44px); padding-right:clamp(22px,3vw,44px);
+  font-family:var(--z2-acc); font-style:italic; font-size:clamp(24px,3vw,42px); color:var(--z2-gold); white-space:nowrap;
+}
+#zakulisie .z2-marq__row i{font-style:normal; font-size:.5em; color:var(--z2-gold-2)}
+@keyframes z2-marq{to{transform:translateX(-50%)}}
+#zakulisie .z2-formats{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(14px,2vw,26px); margin-top:clamp(50px,6vw,90px)}
+#zakulisie .z2-formats--sec{margin-top:0}
+#zakulisie .z2-fmt{
+  position:relative; padding:clamp(26px,2.8vw,40px); border-radius:24px; min-height:0;
+  background:linear-gradient(160deg,rgba(239,230,214,.07),rgba(239,230,214,.02));
+  box-shadow:inset 0 0 0 1px rgba(239,230,214,.1);
+  display:flex; flex-direction:column; justify-content:space-between; gap:40px; overflow:hidden;
+}
+#zakulisie .z2-fmt img{height:64px; width:auto; object-fit:contain; align-self:flex-start; filter:drop-shadow(0 10px 18px rgba(0,0,0,.5))}
+#zakulisie .z2-fmt p{font-family:var(--z2-acc); font-weight:500; font-size:clamp(22px,2vw,28px); line-height:1.22}
+#zakulisie .z2-fmt small{display:block; margin-bottom:10px; font:500 11px/1 var(--z2-sans); letter-spacing:.3em; text-transform:uppercase; color:var(--z2-gold-2)}
+/* ---------- 8. АРХИВ ---------- */
+#zakulisie .z2-arch{background:var(--z2-ink); overflow:hidden}
+#zakulisie .z2-arch__head{display:flex; justify-content:space-between; align-items:flex-end; gap:30px}
+#zakulisie .z2-arch__tx{max-width:30ch; margin-top:22px; font-family:var(--z2-acc); font-size:clamp(22px,2.2vw,32px); line-height:1.25; color:var(--z2-muted)}
+#zakulisie .z2-arch__nav{display:flex; align-items:center; gap:18px; flex:none}
+#zakulisie .z2-arch__cnt{font-family:var(--z2-disp); font-size:18px; letter-spacing:.1em; color:var(--z2-gold); min-width:74px; text-align:center}
+#zakulisie .z2-arch__cnt i{font-style:normal; color:var(--z2-faint)}
+#zakulisie .z2-round{
+  width:56px; height:56px; border-radius:50%; display:grid; place-items:center;
+  box-shadow:inset 0 0 0 1px var(--z2-line-2); color:var(--z2-gold); transition:background .4s, color .4s;
+}
+#zakulisie .z2-round:hover{background:var(--z2-gold); color:var(--z2-ink)}
+#zakulisie .z2-round svg{width:20px; height:20px}
+#zakulisie .z2-track{
+  display:flex; gap:clamp(16px,2vw,28px); margin:clamp(36px,4vw,60px) calc(var(--pad)*-1) 0;
+  padding:0 var(--pad) 10px; overflow-x:auto; scroll-snap-type:x mandatory; scroll-padding:0 var(--pad);
+  scrollbar-width:none; cursor:grab;
+}
+#zakulisie .z2-track::-webkit-scrollbar{display:none}
+#zakulisie .z2-track.is-drag{cursor:grabbing; scroll-snap-type:none}
+#zakulisie .z2-card{flex:0 0 clamp(280px,34vw,470px); scroll-snap-align:start}
+#zakulisie .z2-card button{
+  display:block; width:100%; border-radius:20px; overflow:hidden; position:relative;
+  box-shadow:0 30px 60px -30px #000, 0 0 0 1px rgba(200,164,77,.3);
+}
+#zakulisie .z2-card img{width:100%; aspect-ratio:1; object-fit:cover; transition:transform 1s var(--z2-ease); pointer-events:none}
+#zakulisie .z2-card button::after{
+  content:'Открыть'; position:absolute; right:14px; bottom:14px; padding:9px 16px; border-radius:999px;
+  font:500 12px/1 var(--z2-sans); letter-spacing:.14em; text-transform:uppercase; color:var(--z2-ink); background:var(--z2-gold);
+  opacity:0; transform:translateY(8px); transition:.4s var(--z2-ease);
+}
+#zakulisie .z2-card button:hover img{transform:scale(1.035)}
+#zakulisie .z2-card button:hover::after{opacity:1; transform:none}
+#zakulisie .z2-card figcaption{display:flex; gap:14px; align-items:baseline; margin-top:18px}
+#zakulisie .z2-card figcaption span{font-family:var(--z2-disp); color:var(--z2-gold-2); letter-spacing:.1em}
+#zakulisie .z2-card figcaption b{font-family:var(--z2-acc); font-weight:500; font-size:clamp(20px,1.8vw,26px)}
+/* лайтбокс */
+#zakulisie .z2-lb{
+  position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:clamp(16px,4vw,50px);
+  background:rgba(8,5,4,.9); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+  opacity:0; visibility:hidden; transition:opacity .4s, visibility .4s;
+}
+#zakulisie .z2-lb.is-open{opacity:1; visibility:visible}
+#zakulisie .z2-lb img{max-height:88vh; width:auto; border-radius:14px; box-shadow:0 30px 80px -20px #000; transform:scale(.96); transition:transform .5s var(--z2-ease)}
+#zakulisie .z2-lb.is-open img{transform:none}
+#zakulisie .z2-lb__x{position:absolute; top:calc(env(safe-area-inset-top,0px) + 16px); right:16px; background:rgba(13,9,8,.6)}
+/* ---------- 9. БИЛЕТ ---------- */
+#zakulisie .z2-price{background:radial-gradient(ellipse 80% 70% at 50% 40%,var(--z2-ink-3),var(--z2-ink) 70%); text-align:center}
+#zakulisie .z2-price .z2-act{justify-content:center}
+#zakulisie .z2-price .z2-act::before{content:''; flex:0 1 90px; height:1px; background:linear-gradient(270deg,var(--z2-line-2),transparent)}
+#zakulisie .z2-ticket{
+  --notch:22px;
+  position:relative; max-width:900px; margin:clamp(40px,5vw,70px) auto 0;
+  display:grid; grid-template-columns:1.25fr 1fr; text-align:left;
+  filter:drop-shadow(0 40px 60px rgba(0,0,0,.6));
+}
+#zakulisie .z2-ticket > div{
+  position:relative; padding:clamp(28px,3.4vw,50px);
+  background:linear-gradient(150deg,#f3ead9,#e6d7bd); color:#2a1510;
+}
+#zakulisie .z2-ticket > div:first-child{
+  border-radius:22px 0 0 22px;
+  -webkit-mask:radial-gradient(circle var(--notch) at 100% 0,transparent 98%,#000) top/100% 51% no-repeat,
+               radial-gradient(circle var(--notch) at 100% 100%,transparent 98%,#000) bottom/100% 51% no-repeat;
+          mask:radial-gradient(circle var(--notch) at 100% 0,transparent 98%,#000) top/100% 51% no-repeat,
+               radial-gradient(circle var(--notch) at 100% 100%,transparent 98%,#000) bottom/100% 51% no-repeat;
+}
+#zakulisie .z2-ticket > div:last-child{
+  border-radius:0 22px 22px 0; background:linear-gradient(150deg,#7a1b24,#4a0d14); color:var(--z2-cream);
+  -webkit-mask:radial-gradient(circle var(--notch) at 0 0,transparent 98%,#000) top/100% 51% no-repeat,
+               radial-gradient(circle var(--notch) at 0 100%,transparent 98%,#000) bottom/100% 51% no-repeat;
+          mask:radial-gradient(circle var(--notch) at 0 0,transparent 98%,#000) top/100% 51% no-repeat,
+               radial-gradient(circle var(--notch) at 0 100%,transparent 98%,#000) bottom/100% 51% no-repeat;
+}
+#zakulisie .z2-ticket > div:last-child::before{ /* перфорация */
+  content:''; position:absolute; left:0; top:var(--notch); bottom:var(--notch); width:2px;
+  background:repeating-linear-gradient(180deg,rgba(243,234,217,.55) 0 7px,transparent 7px 14px);
+}
+#zakulisie .z2-ticket__lbl{font:500 11px/1.3 var(--z2-sans); letter-spacing:.3em; text-transform:uppercase; opacity:.7}
+#zakulisie .z2-ticket__sum{margin-top:14px; font-family:var(--z2-disp); font-size:clamp(54px,7vw,96px); line-height:.95; letter-spacing:-.01em}
+#zakulisie .z2-ticket__sum small{font-size:.42em; margin-left:.12em}
+#zakulisie .z2-ticket__note{margin-top:14px; font-family:var(--z2-acc); font-style:italic; font-size:clamp(19px,1.8vw,24px); line-height:1.25}
+#zakulisie .z2-ticket > div:first-child .z2-ticket__note{color:#6a1d24}
+#zakulisie .z2-ticket > div:last-child .z2-ticket__sum{background:var(--z2-goldgrad); -webkit-background-clip:text; background-clip:text; color:transparent}
+#zakulisie .z2-ticket__stamp{
+  position:absolute; right:clamp(18px,3vw,40px); top:clamp(18px,3vw,36px); width:clamp(54px,6vw,76px); opacity:.85;
+  filter:sepia(.6) hue-rotate(-20deg) saturate(1.6) brightness(.6); transform:rotate(12deg);
+}
+#zakulisie .z2-price__how{margin:clamp(34px,4vw,50px) auto 0; max-width:34ch; color:var(--z2-muted)}
+#zakulisie .z2-price .z2-btn{margin-top:26px}
+#zakulisie .z2-final .z2-btn{margin-top:clamp(34px,4vw,54px)}
+/* ---------- плавающая кнопка (телефон) ---------- */
+#zakulisie .z2-dock{
+  position:fixed; z-index:60; left:12px; right:12px; bottom:calc(env(safe-area-inset-bottom,0px) + 12px);
+  display:none; align-items:center; justify-content:space-between; gap:12px;
+  padding:8px 8px 8px 20px; border-radius:999px;
+  background:rgba(20,16,14,.86); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+  box-shadow:0 0 0 1px var(--z2-line-2), 0 20px 40px -16px #000;
+  transform:translateY(140%); transition:transform .6s var(--z2-ease);
+}
+#zakulisie .z2-dock.is-on{transform:none}
+#zakulisie .z2-dock div{font-size:13px; line-height:1.25; color:var(--z2-muted)}
+#zakulisie .z2-dock b{display:block; font-family:var(--z2-disp); font-weight:400; font-size:19px; color:var(--z2-gold)}
+#zakulisie .z2-dock .z2-btn{--h:48px; padding:0 20px; font-size:14px; box-shadow:none}
+/* ---------- появления ---------- */
+#zakulisie .z2-rv{opacity:0; transform:translateY(28px); transition:opacity 1s var(--z2-ease), transform 1s var(--z2-ease); transition-delay:calc(var(--i,0)*100ms)}
+#zakulisie .z2-rv.is-in{opacity:1; transform:none}
+@keyframes z2-up{to{opacity:1; transform:none}}
+@media (max-width:980px){
+
+  #zakulisie .z2-signs{grid-template-columns:1fr; gap:48px}
+  #zakulisie .z2-sign{padding-top:0}
+  #zakulisie .z2-formats{grid-template-columns:1fr}
+  #zakulisie .z2-fmt{min-height:0; flex-direction:row; align-items:center; gap:22px}
+  #zakulisie .z2-fmt img{height:52px; flex:none; align-self:center}
+}
+@media (max-width:760px){
+
+  #zakulisie .z2-top .z2-btn{display:none}
+  #zakulisie .z2-dock{display:flex}
+  #zakulisie .z2-hero__cta .z2-btn{width:100%}
+  #zakulisie .z2-hero__cta .z2-ghost{justify-content:center}
+
+  /* признаки — свайпом */
+  #zakulisie .z2-signs{
+    display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none;
+    margin:40px calc(var(--pad)*-1) 0; padding:40px var(--pad) 6px; scroll-padding:0 var(--pad);
+  }
+  #zakulisie .z2-signs::-webkit-scrollbar{display:none}
+  #zakulisie .z2-sign{flex:0 0 78%; scroll-snap-align:start}
+  #zakulisie .z2-sign__img{height:170px}
+
+  #zakulisie .z2-arch__head{flex-direction:column; align-items:flex-start}
+  #zakulisie .z2-arch__nav{align-self:stretch; justify-content:space-between}
+  #zakulisie .z2-card{flex:0 0 84%}
+  #zakulisie .z2-card button::after{opacity:1; transform:none; padding:7px 12px; font-size:10px}
+
+  #zakulisie .z2-ticket{grid-template-columns:1fr}
+  #zakulisie .z2-ticket > div:first-child{
+    border-radius:22px 22px 0 0;
+    -webkit-mask:radial-gradient(circle var(--notch) at 0 100%,transparent 98%,#000) left/51% 100% no-repeat,
+                 radial-gradient(circle var(--notch) at 100% 100%,transparent 98%,#000) right/51% 100% no-repeat;
+            mask:radial-gradient(circle var(--notch) at 0 100%,transparent 98%,#000) left/51% 100% no-repeat,
+                 radial-gradient(circle var(--notch) at 100% 100%,transparent 98%,#000) right/51% 100% no-repeat;
+  }
+  #zakulisie .z2-ticket > div:last-child{
+    border-radius:0 0 22px 22px;
+    -webkit-mask:radial-gradient(circle var(--notch) at 0 0,transparent 98%,#000) left/51% 100% no-repeat,
+                 radial-gradient(circle var(--notch) at 100% 0,transparent 98%,#000) right/51% 100% no-repeat;
+            mask:radial-gradient(circle var(--notch) at 0 0,transparent 98%,#000) left/51% 100% no-repeat,
+                 radial-gradient(circle var(--notch) at 100% 0,transparent 98%,#000) right/51% 100% no-repeat;
+  }
+  #zakulisie .z2-ticket > div:last-child::before{
+    left:var(--notch); right:var(--notch); top:0; bottom:auto; width:auto; height:2px;
+    background:repeating-linear-gradient(90deg,rgba(243,234,217,.55) 0 7px,transparent 7px 14px);
+  }
+  #zakulisie .z2-price .z2-btn,#zakulisie .z2-final .z2-btn{width:100%}
+  #zakulisie .z2-ticket__stamp{top:auto; bottom:18px; width:46px}
+}
+@media (prefers-reduced-motion:reduce){
+
+  #zakulisie .z2-rv,#zakulisie .z2-hero .z2-in{opacity:1; transform:none}
+}
+
+/* главная кнопка — крупная, с бегущим бликом */
+#zakulisie .z2-btn--big{
+  --h:76px; padding:0 clamp(34px,4vw,62px); gap:18px; border-radius:999px;
+  font-size:clamp(17px,1.5vw,21px); font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  background:linear-gradient(96deg,#8c6c25,#edd9a4 22%,#c8a44d 42%,#f8f0d4 58%,#c8a44d 74%,#8c6c25);
+  background-size:230% 100%;
+  box-shadow:0 26px 60px -20px rgba(200,164,77,.75), 0 0 0 1px rgba(255,245,215,.45) inset,
+             0 0 0 6px rgba(200,164,77,.09);
+  animation:z2-sheen 6s ease-in-out infinite;
+}
+#zakulisie .z2-btn--big svg{width:22px; height:22px; stroke-width:2}
+#zakulisie .z2-btn--big:hover{
+  animation-play-state:paused; background-position:100% 0; transform:translateY(-3px) scale(1.015);
+  box-shadow:0 34px 70px -18px rgba(200,164,77,.95), 0 0 0 1px rgba(255,245,215,.6) inset,
+             0 0 0 10px rgba(200,164,77,.12);
+}
+@keyframes z2-sheen{0%,100%{background-position:0 0}50%{background-position:100% 0}}
+@media (max-width:760px){ #zakulisie .z2-btn--big{--h:66px; width:100%; font-size:16px; letter-spacing:.06em} }
+@media (prefers-reduced-motion:reduce){ #zakulisie .z2-btn--big{animation:none} }
