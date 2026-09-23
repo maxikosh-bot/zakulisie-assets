@@ -818,6 +818,9 @@
 }
 /* кнопка в хиро — как «Хочу в клуб»; на телефоне без залипающего hover */
 @media (max-width:760px){ #zakulisie .zk-hero__btn{width:100%; max-width:380px} }
+/* на ромбах кольцо-ореол читается как рамка — в хиро только мягкая тень */
+#zakulisie .zk-hero__btn .z2-btn--big,#zakulisie .zk-hero__btn .z2-btn--big:hover{
+  box-shadow:0 18px 38px -18px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,245,215,.45)}
 @media (hover:none){
   #zakulisie .z2-btn:hover,#zakulisie .z2-btn--big:hover{transform:none; animation-play-state:running}
 }
