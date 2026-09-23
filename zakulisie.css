@@ -393,6 +393,9 @@
 }
 /* тонкая рамка по краю первого экрана */
 #zakulisie .zk-hero{box-shadow:inset 0 0 0 1px rgba(200,164,77,.28)}
+/* низ хиро растворяется в тёмный следующий блок — без жёсткой полосы */
+#zakulisie .zk-hero::after{content:""; position:absolute; left:0; right:0; bottom:0; z-index:2; pointer-events:none;
+  height:clamp(70px,10vw,150px); background:linear-gradient(to bottom,rgba(0,0,0,0),var(--z2-ink))}
 #zakulisie .zk-hero__glow{
   background:radial-gradient(ellipse 46% 48% at 50% 54%,
     rgba(8,5,4,.94) 0%, rgba(8,5,4,.8) 32%, rgba(8,5,4,.5) 56%, rgba(8,5,4,0) 100%);
