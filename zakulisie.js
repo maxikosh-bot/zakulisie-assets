@@ -7,6 +7,14 @@
     a.href = CTA_URL; a.target = '_blank'; a.rel = 'noopener';
   });
 
+  /* ====== «Заглянуть за кулисы» — плавно к «Как это работает» ====== */
+  root.querySelectorAll('a[href="#how"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var t = document.getElementById('how'); if (!t) return;
+      e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
   /* ====== где лежат картинки (для Тильды — адрес их CDN) ====== */
   var IMG_BASE = 'https://cdn.jsdelivr.net/gh/maxikosh-bot/zakulisie-assets@ef6cdbd/';
   if (IMG_BASE !== 'assets/'){

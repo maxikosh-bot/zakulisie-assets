@@ -28,7 +28,7 @@
   --maxw: 1180px;
 
   /* ромбы-арлекин: SVG-плитка, шов не видно на любом экране */
-  --harlequin: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 172'%3E%3Crect width='100' height='172' fill='%23f1e8de'/%3E%3Cpath d='M50 0 100 86 50 172 0 86Z' fill='%236a1d24'/%3E%3C/svg%3E");
+  --harlequin: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 172'%3E%3Cpath d='M50 0 100 86 50 172 0 86Z' fill='%236a1d24'/%3E%3C/svg%3E");
 
   background:var(--cream); color:var(--ink);
   font-family:var(--sans); font-size:17px; line-height:1.5;
@@ -73,7 +73,7 @@
 /* ------------ 1. ХИРО ------------ */
 #zakulisie .zk-hero{
   position:relative; text-align:center; overflow:hidden;
-  background-image:var(--harlequin); background-size:auto clamp(146px,15vw,230px);
+  background-color:#f1e8de; background-image:var(--harlequin); background-size:auto clamp(146px,15vw,230px);
   padding:clamp(30px,4.5vw,60px) var(--pad) clamp(52px,7vw,104px);
 }
 #zakulisie .zk-hero__glow{
@@ -823,6 +823,67 @@
   box-shadow:0 18px 38px -18px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,245,215,.45)}
 @media (hover:none){
   #zakulisie .z2-btn:hover,#zakulisie .z2-btn--big:hover{transform:none; animation-play-state:running}
+}
+/* ===== v4: тексты по новому ТЗ ===== */
+/* хиро стал выше и общее пятно .zk-hero__glow съехало вниз — своё затемнение под словом */
+#zakulisie .zk-hero__ttlwrap{position:relative; z-index:3}
+#zakulisie .zk-hero__ttlwrap::before{
+  content:""; position:absolute; z-index:-1; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:min(1300px,112vw); height:230%; pointer-events:none;
+  background:radial-gradient(closest-side, rgba(20,13,11,.82), rgba(20,13,11,.55) 55%, rgba(20,13,11,0));
+}
+#zakulisie .zk-hero__role{
+  position:relative; z-index:3; margin:clamp(10px,1.4vw,18px) auto 0;
+  font-family:var(--disp); color:var(--gold); font-size:clamp(22px,2.9vw,38px); line-height:1.2;
+  text-shadow:0 2px 14px rgba(20,13,11,.9);
+}
+#zakulisie .zk-hero__sub{max-width:34ch; font-size:clamp(16px,1.7vw,22px)}
+#zakulisie .zk-hero__qs{
+  position:relative; z-index:3; list-style:none; padding:0;
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 clamp(24px,3vw,48px);
+  max-width:880px; margin:clamp(22px,2.8vw,36px) auto 0; text-align:left;
+}
+#zakulisie .zk-hero__qs li{
+  position:relative; padding:14px 0 14px 26px; border-top:1px solid rgba(200,164,77,.35);
+  font-family:var(--sans); font-weight:400; font-size:clamp(14px,1.15vw,16px); line-height:1.45; color:#f1e7d6;
+  text-shadow:0 1px 10px rgba(20,13,11,.95), 0 0 24px rgba(20,13,11,.8);
+}
+#zakulisie .zk-hero__qs li::before{content:"✦"; position:absolute; left:0; top:14px; color:var(--gold); font-size:.85em}
+#zakulisie .zk-hero__lead{
+  position:relative; z-index:3; max-width:40ch; margin:clamp(18px,2.4vw,30px) auto 0;
+  font-family:var(--ser); font-style:italic; color:var(--cream); font-size:clamp(16px,1.6vw,21px); line-height:1.45;
+  text-shadow:0 2px 12px rgba(20,13,11,.92), 0 0 34px rgba(20,13,11,.85);
+}
+#zakulisie .zk-hero__panel{
+  position:relative; z-index:3; max-width:900px; margin:clamp(22px,2.8vw,36px) auto 0;
+  padding:clamp(8px,1vw,12px) clamp(16px,2.4vw,32px) clamp(18px,2vw,26px);
+  border-radius:20px; background:rgba(20,13,11,.62); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+  box-shadow:inset 0 0 0 1px rgba(200,164,77,.22);
+}
+#zakulisie .zk-hero__panel .zk-hero__qs{margin:clamp(14px,1.8vw,22px) 0 0; max-width:none}
+#zakulisie .zk-hero__panel .zk-hero__role{margin:clamp(12px,1.4vw,18px) auto 0; text-align:center}
+#zakulisie .zk-hero__panel .zk-hero__sub{margin:8px auto 0; text-shadow:none}
+#zakulisie .zk-hero__panel li,#zakulisie .zk-hero__panel .zk-hero__lead{text-shadow:none}
+#zakulisie .zk-hero__panel .zk-hero__lead{margin:clamp(10px,1.4vw,16px) auto 0; padding-top:clamp(14px,1.6vw,20px); border-top:1px solid rgba(200,164,77,.35); max-width:none}
+
+#zakulisie .zk-curtain__tx{max-width:none; margin:0; font-weight:400}
+#zakulisie .zk-curtain__tx em{line-height:1.05}
+#zakulisie .zk-q--solo{padding-bottom:clamp(60px,8vw,120px)}
+#zakulisie .zk-final__ttl{max-width:none}
+#zakulisie .zk-final__tx{max-width:48ch; margin:clamp(22px,3vw,40px) auto 0; text-align:center}
+#zakulisie .zk-final__tx p{
+  font-family:var(--ser); color:var(--cream); font-size:clamp(16px,1.6vw,21px); line-height:1.5; margin:0 0 .35em;
+}
+#zakulisie .zk-final__tx .zk-final__last{margin-top:1.1em; font-style:italic; color:#e8d4a6}
+#zakulisie .zk-how{scroll-margin-top:20px}
+@media (max-width:760px){
+  #zakulisie .zk-hero__sub{max-width:24ch; font-size:17px}
+  #zakulisie .zk-hero__qs{grid-template-columns:1fr}
+  #zakulisie .zk-hero__panel{padding:4px 16px 16px}
+  #zakulisie .zk-hero__qs li:nth-child(2){border-top:1px solid rgba(200,164,77,.35)}
+  #zakulisie .zk-hero__qs li{font-size:14px; padding:11px 0 11px 22px}
+  #zakulisie .zk-hero__qs li::before{top:11px}
+  #zakulisie .zk-hero__lead{font-size:16px; max-width:28ch}
 }
 @keyframes z2-sheen{0%,100%{background-position:0 0}50%{background-position:100% 0}}
 @media (max-width:760px){ #zakulisie .z2-btn--big{--h:66px; width:100%; font-size:16px; letter-spacing:.06em} }
