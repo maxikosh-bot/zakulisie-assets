@@ -15,46 +15,27 @@
     });
   });
 
-  /* ====== СЦЕНА: кулисы разъезжаются по прокрутке ====== */
+  /* ====== СЦЕНА: кулисы расходятся сами, когда блок въехал в экран ====== */
   (function(){
     var act = root.querySelector('.zk-act');
-    if (!act || !window.requestAnimationFrame) return;
+    if (!act || !('IntersectionObserver' in window)) return;
     if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    act.classList.add('is-live');
-    var pin = act.querySelector('.zk-act__pin'), tx = act.querySelector('.zk-act__tx'),
-        list = act.querySelector('.zk-act__qs'), qs = [].slice.call(act.querySelectorAll('.zk-act__qs li'));
-    var TH = [.48, .59, .7, .81], listH = 0, busy = false;
-    function cl(v){ return v < 0 ? 0 : v > 1 ? 1 : v; }
-    function span(p, a, b){ return cl((p - a) / (b - a)); }
-    function ease(x){ return x * x * (3 - 2 * x); }
-    var cur = act.querySelector('.zk-act__cur');
+    var pin = act.querySelector('.zk-act__pin');
     function measure(){
-      listH = list.offsetHeight + parseFloat(getComputedStyle(list).marginTop || 0);
       // ширину полотна считаем от высоты сцены (картинка 736×2392), а не по картинке — та может быть ещё не разложена
       var PW = pin.offsetWidth, wide = PW > 760, W = pin.offsetHeight * (wide ? 1.25 : 1) * 736 / 2392;
-      // в начале полотна смыкаются по центру, в конце — рамка по краям, текстовая колонка свободна
+      // в начале полотна сомкнуты по центру, в конце — рамка по краям, текстовая колонка свободна
       act.style.setProperty('--in', Math.max(0, PW / 2 - W + 24) + 'px');
       act.style.setProperty('--out', Math.max(0, wide ? W - (PW - 860) / 2 : W - 34) + 'px');
-      update();
     }
-    window.addEventListener('load', measure);
-    function update(){
-      busy = false;
-      var r = act.getBoundingClientRect(), run = r.height - pin.offsetHeight;
-      var p = run > 0 ? cl(-r.top / run) : 1;
-      act.style.setProperty('--open', ease(span(p, .04, .44)).toFixed(4));
-      act.style.setProperty('--t', span(p, .12, .34).toFixed(4));
-      act.style.setProperty('--hint', (1 - span(p, 0, .05)).toFixed(3));
-      var last = -1;
-      qs.forEach(function(li, i){ var on = p >= TH[i]; li.classList.toggle('on', on); if (on) last = i; });
-      qs.forEach(function(li, i){ li.classList.toggle('past', i < last); });
-      // пока реплик нет, заголовок стоит по центру; с каждой репликой блок подтягивается вверх
-      var q = span(p, .44, .83);
-      tx.style.transform = 'translateY(' + ((1 - q) * listH / 2).toFixed(1) + 'px)';
-    }
-    window.addEventListener('scroll', function(){ if (!busy){ busy = true; requestAnimationFrame(update); } }, {passive:true});
-    window.addEventListener('resize', measure);
     measure();
+    act.classList.add('is-auto');
+    window.addEventListener('resize', measure);
+    window.addEventListener('load', measure);
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting){ act.classList.add('is-open'); io.disconnect(); } });
+    }, {threshold: .35});
+    io.observe(act);
   })();
 
   /* ====== где лежат картинки (для Тильды — адрес их CDN) ====== */
