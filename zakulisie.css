@@ -866,48 +866,79 @@
 #zakulisie .zk-hero__panel li,#zakulisie .zk-hero__panel .zk-hero__lead{text-shadow:none}
 #zakulisie .zk-hero__panel .zk-hero__lead{margin:clamp(10px,1.4vw,16px) auto 0; padding-top:clamp(14px,1.6vw,20px); border-top:1px solid rgba(200,164,77,.35); max-width:none}
 
-/* ===== занавес-«софит»: надпись в широкой нижней части проёма, луч сверху ===== */
-#zakulisie .zk-stage .zk-curtain__in{min-height:clamp(440px,48vw,700px); align-items:flex-end; padding-bottom:clamp(44px,6vw,90px)}
-#zakulisie .zk-stage img:not(.zk-stage__star){object-position:50% 62%}
-#zakulisie .zk-stage__light{
-  position:absolute; inset:0; z-index:1; pointer-events:none;
+/* ===== СЦЕНА (v5): кулисы разъезжаются по прокрутке, текст выходит из темноты =====
+   Без JS и при reduced-motion — статичный вид: кулисы приоткрыты, всё видно сразу.
+   JS добавляет .is-live: блок становится высоким, экран «залипает», прогресс идёт в --open/--t. */
+#zakulisie .zk-act{position:relative; background:#050605; --open:1; --t:1; --hint:0}
+#zakulisie .zk-act__pin{position:relative; min-height:clamp(620px,100vh,980px); overflow:hidden;
+  display:flex; align-items:center; justify-content:center}
+#zakulisie .zk-act.is-live{height:340vh}
+#zakulisie .zk-act.is-live .zk-act__pin{position:sticky; top:0; height:100vh; height:100svh; min-height:0}
+#zakulisie .zk-act__light{position:absolute; inset:0; z-index:1; pointer-events:none;
   background:
-    radial-gradient(ellipse 30% 42% at 50% 78%, rgba(3,4,3,.82), rgba(3,4,3,.45) 55%, rgba(3,4,3,0) 100%),
-    radial-gradient(ellipse 16% 95% at 50% -12%, rgba(255,226,168,.20), rgba(255,226,168,.06) 55%, rgba(255,226,168,0) 100%),
-    linear-gradient(180deg, rgba(5,6,5,0) 72%, rgba(5,6,5,.85) 100%);
-}
-#zakulisie .zk-stage__tx{text-align:center; max-width:min(620px,92vw); margin:0 auto}
-#zakulisie .zk-stage__star{
-  position:static !important; display:block; width:clamp(26px,2.4vw,34px) !important; height:auto !important;
-  margin:0 auto clamp(12px,1.4vw,18px); filter:drop-shadow(0 0 14px rgba(232,200,120,.45)) !important;
-}
-#zakulisie .zk-stage__h{margin:0; font-weight:400}
-#zakulisie .zk-stage__h span{
-  display:block; font-family:'Cormorant Garamond', var(--ser); font-style:italic; font-weight:500;
-  color:#ece2cf; font-size:clamp(21px,2.3vw,32px); line-height:1.22; letter-spacing:.01em;
-  text-shadow:0 2px 14px rgba(0,0,0,.9);
-}
-#zakulisie .zk-stage__h em{
-  display:block; margin-top:.22em; font-family:var(--disp); font-style:italic; font-weight:400;
-  font-size:clamp(42px,5.6vw,82px); line-height:1.02; letter-spacing:-.005em;
+    radial-gradient(ellipse 18% 90% at 50% -18%, rgba(255,226,168,calc(.05 + .2*var(--open))), rgba(255,226,168,0) 100%),
+    radial-gradient(ellipse 46% 20% at 50% 102%, rgba(200,164,77,calc(.1*var(--open))), rgba(200,164,77,0) 100%)}
+/* кулисы — два полотна винного бархата (правое как есть, левое зеркально).
+   --in: насколько сдвинуты к центру в начале (сомкнуты), --out: насколько уходят за край в конце — считает JS */
+#zakulisie .zk-act{--in:0px; --out:0px}
+#zakulisie .zk-act__cur{position:absolute; top:0; height:125%; width:auto; max-width:none; z-index:3; pointer-events:none;
+  will-change:transform; filter:brightness(calc(.55 + .45 * var(--open))) saturate(1.05)}
+#zakulisie .zk-act__cur--l{left:0; transform:translateX(calc(var(--in) * (1 - var(--open)) - var(--out) * var(--open))) scaleX(-1)}
+#zakulisie .zk-act__cur--r{right:0; transform:translateX(calc(var(--out) * var(--open) - var(--in) * (1 - var(--open))))}
+/* без анимации (нет JS / reduced-motion) кулисы стоят рамкой и не закрывают текст */
+#zakulisie .zk-act:not(.is-live) .zk-act__cur--l{transform:translateX(-72%) scaleX(-1)}
+#zakulisie .zk-act:not(.is-live) .zk-act__cur--r{transform:translateX(72%)}
+/* тень от портала сверху — кулисы уходят в темноту */
+#zakulisie .zk-act__pin::after{content:""; position:absolute; left:0; right:0; top:0; height:16%; z-index:4; pointer-events:none;
+  background:linear-gradient(#050605, rgba(5,6,5,0))}
+
+#zakulisie .zk-act__tx{position:relative; z-index:2; text-align:center; width:min(940px,100%);
+  padding:clamp(70px,9vh,110px) var(--pad); will-change:transform}
+#zakulisie .zk-act__star{display:block; width:clamp(26px,2.4vw,34px); height:auto; margin:0 auto clamp(12px,1.6vh,18px);
+  filter:drop-shadow(0 0 14px rgba(232,200,120,.5)); opacity:var(--t)}
+#zakulisie .zk-act__h{margin:0; font-weight:400; opacity:var(--t);
+  transform:translateY(calc((1 - var(--t)) * 28px)) scale(calc(.94 + .06 * var(--t)));
+  filter:blur(calc((1 - var(--t)) * 6px))}
+#zakulisie .zk-act__h span{display:block; font-family:'Cormorant Garamond', var(--ser); font-style:italic; font-weight:500;
+  color:#ece2cf; font-size:clamp(20px,2.3vw,31px); line-height:1.22}
+#zakulisie .zk-act__h em{display:block; margin-top:.16em; font-family:var(--disp); font-style:italic; font-weight:400;
+  font-size:clamp(40px,5.4vw,80px); line-height:1.02;
   background:linear-gradient(96deg,#b8903d,#f3dcaa 28%,#d4ae5c 50%,#fbf0d2 70%,#b8903d);
-  -webkit-background-clip:text; background-clip:text; color:transparent;
-  filter:drop-shadow(0 4px 20px rgba(0,0,0,.85));
-}
-#zakulisie .zk-stage__rule{
-  display:block; width:clamp(90px,10vw,150px); height:1px; margin:clamp(18px,2vw,26px) auto 0;
-  background:linear-gradient(90deg,transparent,#c8a44d,transparent);
-}
+  -webkit-background-clip:text; background-clip:text; color:transparent}
+
+#zakulisie .zk-act__qs{list-style:none; padding:0; margin:clamp(26px,4vh,46px) auto 0; max-width:880px;
+  display:grid; grid-template-columns:1fr 1fr; gap:0 clamp(24px,3vw,48px); text-align:left; counter-reset:none}
+#zakulisie .zk-act__qs li{display:grid; grid-template-columns:clamp(34px,3vw,44px) 1fr; align-items:baseline;
+  padding:clamp(12px,1.8vh,18px) 0; border-top:1px solid rgba(200,164,77,.28);
+  transition:opacity .7s cubic-bezier(.2,.8,.25,1), transform .7s cubic-bezier(.2,.8,.25,1)}
+#zakulisie .zk-act__qs b{font-family:var(--disp); font-weight:400; font-size:clamp(15px,1.3vw,19px); color:#c8a44d; letter-spacing:.06em}
+#zakulisie .zk-act__qs p{margin:0; font-family:var(--sans); font-weight:300; font-size:clamp(15px,1.3vw,18px); line-height:1.45; color:#efe6d6;
+  transition:color .7s}
+#zakulisie .zk-act.is-live .zk-act__qs li{opacity:0; transform:translateY(16px)}
+#zakulisie .zk-act.is-live .zk-act__qs li.on{opacity:1; transform:none}
+#zakulisie .zk-act.is-live .zk-act__qs li.past p{color:rgba(239,230,214,.55)}
+
+#zakulisie .zk-act__hint{position:absolute; left:50%; bottom:22px; z-index:4; transform:translateX(-50%);
+  font:500 11px/1 var(--sans); letter-spacing:.3em; text-transform:uppercase; color:rgba(236,226,207,.75);
+  opacity:var(--hint); pointer-events:none}
+#zakulisie .zk-act__hint::after{content:""; display:block; width:1px; height:26px; margin:10px auto 0;
+  background:linear-gradient(rgba(200,164,77,.9),rgba(200,164,77,0)); animation:zk-hint 1.8s ease-in-out infinite}
+@keyframes zk-hint{0%,100%{transform:scaleY(.4); transform-origin:top} 50%{transform:scaleY(1); transform-origin:top}}
+
 @media (max-width:760px){
-  /* на телефоне кадр целиком, низ растворяется в черноте — надпись стоит под руками */
-  #zakulisie .zk-stage img:not(.zk-stage__star){position:relative; height:auto; aspect-ratio:736/919; object-position:50% 0; display:block}
-  #zakulisie .zk-stage__light{bottom:auto; aspect-ratio:736/919;
-    background:
-      radial-gradient(ellipse 22% 70% at 50% -8%, rgba(255,226,168,.18), rgba(255,226,168,0) 100%),
-      linear-gradient(180deg, rgba(5,6,5,0) 58%, rgba(5,6,5,.7) 78%, #050605 97%)}
-  #zakulisie .zk-stage .zk-curtain__in{min-height:0; margin-top:-30vw; padding:0 20px 60px; display:block}
-  #zakulisie .zk-stage__h span{font-size:20px}
-  #zakulisie .zk-stage__h em{font-size:clamp(38px,11vw,48px)}
+  #zakulisie .zk-act.is-live{height:360vh}
+  #zakulisie .zk-act__cur{height:100%}
+  #zakulisie .zk-act__tx{padding:64px 22px 80px}
+  #zakulisie .zk-act__h span{font-size:19px}
+  #zakulisie .zk-act__h em{font-size:clamp(34px,10vw,44px)}
+  #zakulisie .zk-act__qs{grid-template-columns:1fr; margin-top:22px}
+  #zakulisie .zk-act__qs li{grid-template-columns:32px 1fr; padding:11px 0}
+  #zakulisie .zk-act__qs p{font-size:15px}
+}
+@media (max-height:700px) and (max-width:760px){
+  #zakulisie .zk-act__qs p{font-size:14px; line-height:1.38}
+  #zakulisie .zk-act__qs li{padding:8px 0}
+  #zakulisie .zk-act__h em{font-size:34px}
 }
 #zakulisie .zk-q--solo{padding-bottom:clamp(60px,8vw,120px)}
 #zakulisie .zk-final__ttl{max-width:none}
