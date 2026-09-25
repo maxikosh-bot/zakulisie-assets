@@ -866,8 +866,49 @@
 #zakulisie .zk-hero__panel li,#zakulisie .zk-hero__panel .zk-hero__lead{text-shadow:none}
 #zakulisie .zk-hero__panel .zk-hero__lead{margin:clamp(10px,1.4vw,16px) auto 0; padding-top:clamp(14px,1.6vw,20px); border-top:1px solid rgba(200,164,77,.35); max-width:none}
 
-#zakulisie .zk-curtain__tx{max-width:none; margin:0; font-weight:400}
-#zakulisie .zk-curtain__tx em{line-height:1.05}
+/* ===== занавес-«софит»: надпись в широкой нижней части проёма, луч сверху ===== */
+#zakulisie .zk-stage .zk-curtain__in{min-height:clamp(440px,48vw,700px); align-items:flex-end; padding-bottom:clamp(44px,6vw,90px)}
+#zakulisie .zk-stage img:not(.zk-stage__star){object-position:50% 62%}
+#zakulisie .zk-stage__light{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:
+    radial-gradient(ellipse 30% 42% at 50% 78%, rgba(3,4,3,.82), rgba(3,4,3,.45) 55%, rgba(3,4,3,0) 100%),
+    radial-gradient(ellipse 16% 95% at 50% -12%, rgba(255,226,168,.20), rgba(255,226,168,.06) 55%, rgba(255,226,168,0) 100%),
+    linear-gradient(180deg, rgba(5,6,5,0) 72%, rgba(5,6,5,.85) 100%);
+}
+#zakulisie .zk-stage__tx{text-align:center; max-width:min(620px,92vw); margin:0 auto}
+#zakulisie .zk-stage__star{
+  position:static !important; display:block; width:clamp(26px,2.4vw,34px) !important; height:auto !important;
+  margin:0 auto clamp(12px,1.4vw,18px); filter:drop-shadow(0 0 14px rgba(232,200,120,.45)) !important;
+}
+#zakulisie .zk-stage__h{margin:0; font-weight:400}
+#zakulisie .zk-stage__h span{
+  display:block; font-family:'Cormorant Garamond', var(--ser); font-style:italic; font-weight:500;
+  color:#ece2cf; font-size:clamp(21px,2.3vw,32px); line-height:1.22; letter-spacing:.01em;
+  text-shadow:0 2px 14px rgba(0,0,0,.9);
+}
+#zakulisie .zk-stage__h em{
+  display:block; margin-top:.22em; font-family:var(--disp); font-style:italic; font-weight:400;
+  font-size:clamp(42px,5.6vw,82px); line-height:1.02; letter-spacing:-.005em;
+  background:linear-gradient(96deg,#b8903d,#f3dcaa 28%,#d4ae5c 50%,#fbf0d2 70%,#b8903d);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 4px 20px rgba(0,0,0,.85));
+}
+#zakulisie .zk-stage__rule{
+  display:block; width:clamp(90px,10vw,150px); height:1px; margin:clamp(18px,2vw,26px) auto 0;
+  background:linear-gradient(90deg,transparent,#c8a44d,transparent);
+}
+@media (max-width:760px){
+  /* на телефоне кадр целиком, низ растворяется в черноте — надпись стоит под руками */
+  #zakulisie .zk-stage img:not(.zk-stage__star){position:relative; height:auto; aspect-ratio:736/919; object-position:50% 0; display:block}
+  #zakulisie .zk-stage__light{bottom:auto; aspect-ratio:736/919;
+    background:
+      radial-gradient(ellipse 22% 70% at 50% -8%, rgba(255,226,168,.18), rgba(255,226,168,0) 100%),
+      linear-gradient(180deg, rgba(5,6,5,0) 58%, rgba(5,6,5,.7) 78%, #050605 97%)}
+  #zakulisie .zk-stage .zk-curtain__in{min-height:0; margin-top:-30vw; padding:0 20px 60px; display:block}
+  #zakulisie .zk-stage__h span{font-size:20px}
+  #zakulisie .zk-stage__h em{font-size:clamp(38px,11vw,48px)}
+}
 #zakulisie .zk-q--solo{padding-bottom:clamp(60px,8vw,120px)}
 #zakulisie .zk-final__ttl{max-width:none}
 #zakulisie .zk-final__tx{max-width:48ch; margin:clamp(22px,3vw,40px) auto 0; text-align:center}
