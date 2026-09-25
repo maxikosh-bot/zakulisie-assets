@@ -2,7 +2,7 @@
    Пока файла нет, слово «Закулисье» на занавесе рисуется запасным шрифтом. */
 @font-face{
   font-family:'Isadora';
-  src:url("https://cdn.jsdelivr.net/gh/maxikosh-bot/zakulisie-assets@ef6cdbd/fonts/isadora-bold.ttf") format('truetype');
+  src:url("https://cdn.jsdelivr.net/gh/maxikosh-bot/zakulisie-assets@a20902e/fonts/isadora-bold.ttf") format('truetype');
   font-weight:400; font-style:normal; font-display:swap;
 }
 
@@ -216,7 +216,7 @@
 /* ------------ 8. ЗЕБРА ------------ */
 #zakulisie .zk-zebra{
   background-color:var(--wine-dk);
-  background-image:url("https://cdn.jsdelivr.net/gh/maxikosh-bot/zakulisie-assets@ef6cdbd/pattern-zebra.jpg");
+  background-image:url("https://cdn.jsdelivr.net/gh/maxikosh-bot/zakulisie-assets@a20902e/pattern-zebra.jpg");
   background-size:clamp(240px,26vw,430px) auto; background-repeat:repeat;
   color:var(--gold); text-align:center;
 }

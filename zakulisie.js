@@ -58,7 +58,7 @@
   })();
 
   /* ====== где лежат картинки (для Тильды — адрес их CDN) ====== */
-  var IMG_BASE = 'https://cdn.jsdelivr.net/gh/maxikosh-bot/zakulisie-assets@ef6cdbd/';
+  var IMG_BASE = 'https://cdn.jsdelivr.net/gh/maxikosh-bot/zakulisie-assets@a20902e/';
   if (IMG_BASE !== 'assets/'){
     root.querySelectorAll('img[data-file]').forEach(function(im){ im.src = IMG_BASE + im.getAttribute('data-file'); });
     root.querySelectorAll('[data-bg]').forEach(function(el){
